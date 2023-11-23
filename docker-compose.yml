@@ -1,0 +1,30 @@
+version: '2'                    # Menggunakan Docker Compose versi 2
+
+# Membuat servis
+services:
+  # Membuat service item-app
+  item-app:
+    # menggunakan image item-app dari Docker hub
+    #image: ihyak/item-app:v1
+    # menggunakan image item-app dari github packages
+    image: ghcr.io/ihyaksm/item-app:v1
+    # policy agar container selalu restrat kembali apabila terhenti
+    restart: always
+    # port mapping port 80 host ke 8080 container
+    ports:
+      - "80:8080"    
+    # Memastikan item-app hanya berjalan setelah item-db dijalankan        
+    depends_on:
+      - item-db
+ 
+  # Membuat service item-db
+  item-db:
+    # menggunakan image mongo:3 dari docker hub
+    image: mongo:3 
+    # policy agar container selalu berjalan
+    restart: always
+    # memakai volume bernama app-db dengan target /data/db 
+    volumes:
+      - app-db:/data/db
+volumes:
+  app-db:
