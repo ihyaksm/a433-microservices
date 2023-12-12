@@ -26,18 +26,18 @@ jobs:
       IMAGE_NAME: ghcr.io/ihyaksm/karsajobs
     # langkah-langkah pekerjaan sesuai urutan tugas
     steps:
-    - checkout
-    - setup_remote_docker
-    - run:
-        name: Build Docker Image
-        command: docker build -t $IMAGE_NAME:latest .
-    - run:
-        name: Publish Docker Image to Github Container Registry
-        command: |
-          echo "CR_PAT" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
-          docker push $IMAGE_NAME:latest
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker Image
+          command: docker build -t $IMAGE_NAME:latest .
+      - run:
+          name: Publish Docker Image to Github Container Registry
+          command: |
+            echo "CR_PAT" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
+            docker push $IMAGE_NAME:latest                          
 
-wordkflows:
+workflows:
   ci:
     # tugas
     jobs:
@@ -48,6 +48,6 @@ wordkflows:
     - test-app
     # perintah untuk build dan push image
     - build-app-karsajobs:
-      requires:
-        - docker/hadolint
-        - test-app
+        requires:
+          - docker/hadolint
+          - test-app
