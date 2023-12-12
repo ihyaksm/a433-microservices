@@ -10,7 +10,8 @@ jobs:
     environment:
       IMAGE_NAME: ghcr.io/ihyaksm/karsajobs-ui
     steps:
-    - checkout
+    - checkout:
+        
     - setup_remote_docker
     - run:
         name: Build Docker Image
