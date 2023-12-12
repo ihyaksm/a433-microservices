@@ -40,14 +40,14 @@ jobs:
 wordkflows:
   ci:
     # tugas
-   jobs:
+    jobs:
       # mengisntall hadolint dan menjalannkanya
-     - docker/hadolint:
-        dockerfiles: './Dockerfile'
+      - docker/hadolint:
+          dockerfiles: './Dockerfile'
      # perintah untuk menjalankan unit test untuk backend
-     - test-app
+      - test-app
      # perintah untuk build dan push image
-     - build-app-karsajobs:
+      - build-app-karsajobs:
         requires:
           - docker/hadolint
           - test-app
