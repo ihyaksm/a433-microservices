@@ -25,14 +25,14 @@ jobs:
 wordkflows:
   ci:
     # urutuan penugasan
-   jobs:
+    jobs:
       # menggunakan hadolint
-     - docker/hadolint:
-        dockerfiles: './Dockerfile'
+      - docker/hadolint:
+          dockerfiles: './Dockerfile'
       # menjalankan test app
-     - test-app
+      - test-app
       # membuild 
-     - build-app-karsajobs-ui:
-        requires:
-          - docker/hadolint
+      - build-app-karsajobs-ui:
+          requires:
+            - docker/hadolint
         
