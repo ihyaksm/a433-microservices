@@ -1,0 +1,36 @@
+NAME                                                     READY   STATUS    RESTARTS        AGE
+pod/grafana-68f597856f-96xhl                             1/1     Running   4 (7h16m ago)   31h
+pod/prometheus-alertmanager-0                            1/1     Running   4 (7h16m ago)   31h
+pod/prometheus-kube-state-metrics-6b464f5b88-89mr9       1/1     Running   8 (147m ago)    31h
+pod/prometheus-prometheus-node-exporter-2drjk            1/1     Running   4 (7h16m ago)   31h
+pod/prometheus-prometheus-pushgateway-7857c44f49-fsnqq   1/1     Running   4 (7h16m ago)   31h
+pod/prometheus-server-58f896d9f-lglwj                    2/2     Running   8 (7h16m ago)   31h
+
+NAME                                          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/grafana                               ClusterIP   10.105.188.216   <none>        80/TCP         31h
+service/grafana-np                            NodePort    10.110.254.249   <none>        80:32518/TCP   30h
+service/prometheus-alertmanager               ClusterIP   10.102.49.66     <none>        9093/TCP       31h
+service/prometheus-alertmanager-headless      ClusterIP   None             <none>        9093/TCP       31h
+service/prometheus-kube-state-metrics         ClusterIP   10.111.75.171    <none>        8080/TCP       31h
+service/prometheus-prometheus-node-exporter   ClusterIP   10.104.61.82     <none>        9100/TCP       31h
+service/prometheus-prometheus-pushgateway     ClusterIP   10.98.33.29      <none>        9091/TCP       31h
+service/prometheus-server                     ClusterIP   10.101.159.34    <none>        80/TCP         31h
+service/prometheus-server-np                  NodePort    10.105.10.69     <none>        80:30935/TCP   31h
+
+NAME                                                 DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+daemonset.apps/prometheus-prometheus-node-exporter   1         1         1       1            1           kubernetes.io/os=linux   31h
+
+NAME                                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/grafana                             1/1     1            1           31h
+deployment.apps/prometheus-kube-state-metrics       1/1     1            1           31h
+deployment.apps/prometheus-prometheus-pushgateway   1/1     1            1           31h
+deployment.apps/prometheus-server                   1/1     1            1           31h
+
+NAME                                                           DESIRED   CURRENT   READY   AGE
+replicaset.apps/grafana-68f597856f                             1         1         1       31h
+replicaset.apps/prometheus-kube-state-metrics-6b464f5b88       1         1         1       31h
+replicaset.apps/prometheus-prometheus-pushgateway-7857c44f49   1         1         1       31h
+replicaset.apps/prometheus-server-58f896d9f                    1         1         1       31h
+
+NAME                                       READY   AGE
+statefulset.apps/prometheus-alertmanager   1/1     31h

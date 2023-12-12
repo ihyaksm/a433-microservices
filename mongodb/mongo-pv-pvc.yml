@@ -1,0 +1,26 @@
+apiVersion: v1                # versi API
+kind: PersistentVolume        # jenis obyek kubernetes
+metadata:                     # metadata merujuk kind: PersistentVolume
+  name: mongo-pv              # nama metadata
+  labels:
+    type: local
+spec:                         # spesifikasi sesuai kind
+  storageClassName: manual    # pembuatan penyimpanan oleh user (manual)
+  capacity:       
+    storage: 20Gi             # kapasitas penyimpanan
+  accessModes:                # mode akses PV 
+    - ReadWriteOnce
+  hostPath:                   # alamat path di host
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi

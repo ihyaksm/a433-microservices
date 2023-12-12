@@ -1,0 +1,12 @@
+apiVersion: v1              # versi API yg didefinisikan
+kind: Service               # jenis obyek kubernetes
+metadata:
+  name: mongo-service       # nama metadata
+  labels:
+    app: database
+spec:
+  ports:                    # port yang dilalui
+  - port: 27017
+    protocol: TCP           # protokol  
+  selector:                 # Pemilih pod yang diservis
+    app: database

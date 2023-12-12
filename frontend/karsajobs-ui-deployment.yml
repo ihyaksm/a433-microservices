@@ -1,0 +1,23 @@
+apiVersion: apps/v1                             # Versi API 
+kind: Deployment                                # Jenis obyek Kubernetes
+metadata:                                       # Informasi metadata untuk deployment
+  name: karsajobs-ui-frontend                   # Nama deploy
+spec:
+  replicas: 1                                   # Jumlah replika yang akan dibuat
+  selector:                                     # Pemilih pod yang digunakan
+    matchLabels:
+      app: frontend
+  template:                                     # Template pod
+    metadata:
+      labels:                                   # Label pod sesuai selector
+        app: frontend
+    spec:                                       # Pengaturan spesifikasi pod
+      containers:                               # Konfigurasi kontainer dalam pod
+      - name: karsajobs-ui                      # nama container
+        image: ghcr.io/ihyaksm/karsajobs-ui:latest      # Nama image yang dipakai >>> ke github (ghcr.io)
+        imagePullPolicy: Always                 # image akan dipull ketika pod mulai dijalankan
+        ports:
+        - containerPort: 8000                   # Port yang dipakai untuk mengakses container
+        env:                                    # Environment variables yang dibutuhkan aplikasi
+        - name: VUE_APP_BACKEND
+          value: 'http://192.168.49.2:30571'    # sesuaikan ip yg didapat dg perintah "minikube ip" dan untuk port gunakan "kubectl get service" lihat karsajobs-service
