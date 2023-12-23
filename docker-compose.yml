@@ -1,0 +1,58 @@
+# Versi aplikasi
+version: "2.1"
+
+# Layanan-layanan yang dijalankan
+services:
+    # Layanan order-service
+  order-service:
+    image: ghcr.io/ihyaksm/order-service:latest  # Image Docker yang digunakan
+    container_name: order-service  # Nama kontainer
+    ports:
+      - 3000:3000  # Pemetaan port host ke port kontainer
+    depends_on:
+      rabbitmq:
+        condition: service_healthy  # Bergantung pada layanan rabbitmq yang sudah jalan sempurna
+    links:
+      - rabbitmq  # Menyambungkan ke layanan rabbitmq
+    networks:
+      - rabbitmq_network  # Menggunakan jaringan rabbitmq_network
+
+  # Layanan shipping-service
+  shipping-service:
+    image: ghcr.io/ihyaksm/shipping-service:latest  # Image Docker yang digunakan
+    container_name: shipping-service  # Nama kontainer
+    ports:
+      - 3001:3001  # Pemetaan port host ke port kontainer
+    depends_on:
+      rabbitmq:
+        condition: service_healthy  # Bergantung pada layanan rabbitmq yang sudah jalan sempurna
+    links:
+      - rabbitmq  # Menyambungkan ke layanan rabbitmq
+    networks:
+      - rabbitmq_network  # Menggunakan jaringan rabbitmq_network
+
+  # Layanan rabbitmq
+  rabbitmq:
+    image: rabbitmq:3.11-management  # Versi Image Docker rabbitmq yang digunakan
+    container_name: 'rabbitmq_container'  # Nama kontainer
+    ports:
+      - 5673:5672  # Pemetaan port host ke port kontainer (AMQP)
+      - 15673:15672  # Pemetaan port host ke port kontainer (Manajemen)
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq/  # Mount volume untuk data RabbitMQ
+      - rabbitmq-log:/var/log/rabbitmq/  # Mount volume untuk log RabbitMQ
+    
+    healthcheck:
+      test: "exit 0"  # Menguji jalannya RabbitMQ. Jika tidak ada masalah, akan mengembalikan exit code 0
+    networks:
+      - rabbitmq_network  # Menggunakan jaringan rabbitmq_network
+
+# Definisi volume untuk data dan log RabbitMQ
+volumes:
+  rabbitmq-data:
+  rabbitmq-log:
+
+# Jaringan untuk komunikasi antar kontainer
+networks:
+  rabbitmq_network:
+    driver: bridge  # Pengaturan driver jaringan
