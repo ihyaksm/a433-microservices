@@ -1,2 +1,2 @@
-# a433-microservices
-Repository ini digunakan untuk kebutuhan kelas Belajar Membangun Arsitektur Microservices
+# Rabbit MQ - E-commerce
+Branch ini dibuat untuk mengerjakan tugas akhir Proyek Implementasi Asynchronous Communication pada Aplikasi E-Commerce App menggunakan Rabbti MQ
